@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 
 /**
  * use child component and parent component transfer value such as:
@@ -15,12 +16,12 @@ import React, { Component } from 'react'
  * 
  */
 export default class InputComp extends Component {
-  
+
   render() {
-    const { content } = this.props;
+    const { content,test } = this.props;
     return (
       <div onClick={this.handleOnDel} >
-        {content}
+        {content}-{test}
       </div>
     )
   }
@@ -29,7 +30,23 @@ export default class InputComp extends Component {
    * child component delete parent component stats value
    */
   handleOnDel = () => {
-    const {handleMethod,index} = this.props
+    const { handleMethod, index } = this.props
     handleMethod(index);
   }
+  
+}
+/**
+ * some args type check method
+ */
+InputComp.propTypes = {
+  content:PropTypes.string,
+  handleMethod:PropTypes.func,
+  index:PropTypes.number,
+  test:PropTypes.string.isRequired
+}
+/**
+ * check some transfer args default value set
+ */
+InputComp.defaultProps={
+  test:'hello props'
 }

@@ -17,7 +17,7 @@ export default class TodoList extends Component {
       inputValue: '',
       list: []
     }
-
+    this.hangItemDel = this.hangItemDel.bind(this);
   }
 
   render() {
@@ -27,41 +27,49 @@ export default class TodoList extends Component {
         <input id="inputLable" value={this.state.inputValue} onChange={this.handleOnChanges} className="input" />
         <button onClick={this.onHandleClick}>提交</button>
         <ul>
-          {this.state.list.map((item, index) => {
-            return  <InputComp content={item} index={index} handleMethod={this.hangItemDel.bind(this)}/>
-            // <li key={index} onClick={this.hangItemDel.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
-            // </li>
-          })}
+          {this.getItem()}
         </ul>
       </Fragment>
     )
   }
 
+  getItem = () => {
+    return this.state.list.map((item, index) => {
+      return <InputComp content={item} index={index} handleMethod={this.hangItemDel} key={index} />
+      // <li key={index} onClick={this.hangItemDel.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
+      // </li>
+    })
+  }
+
+
   /**
    * chang input value fuc
    */
   handleOnChanges = (e) => {
-    this.setState({
-      inputValue: e.target.value
+    const val = e.target.value
+    this.setState(() => {
+      return { inputValue: val }
     })
   }
   /**
    * submit input value fuc
    */
   onHandleClick = () => {
-    this.setState({
-      list: [...this.state.list, this.state.inputValue],
-      inputValue: ''
+    this.setState((ps) => {
+      return {
+        list: [...ps.list, ps.inputValue],
+        inputValue: ''
+      }
     })
   }
   /**
    * click del list value fuc
    */
   hangItemDel = (index) => {
-    let task = this.state.list
-    task.splice(index, 1)
-    this.setState({
-      list: task
+    this.setState((ps) => {
+      let task = ps.list
+      task.splice(index, 1)
+      return task
     })
   }
 }

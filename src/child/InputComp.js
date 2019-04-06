@@ -10,13 +10,17 @@ import React, { Component } from 'react'
  *  In A component inner    <B  item={ item }  method ={ this.someMethod } />
  *  In B component inner get A's value :
  *  let value = this.props.item, method().    
+ *  code style change to func style such as:
+ *  this.setState({value: a })   ---->   this.setState((ps)=>{return {ps.value}})
  * 
  */
 export default class InputComp extends Component {
+  
   render() {
+    const { content } = this.props;
     return (
-      <div onClick={this.handleOnDel} key={this.props.index}>
-        {this.props.content}
+      <div onClick={this.handleOnDel} >
+        {content}
       </div>
     )
   }
@@ -25,6 +29,7 @@ export default class InputComp extends Component {
    * child component delete parent component stats value
    */
   handleOnDel = () => {
-    this.props.handleMethod(this.props.index)
+    const {handleMethod,index} = this.props
+    handleMethod(index);
   }
 }

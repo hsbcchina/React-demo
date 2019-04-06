@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import './TodoList.css'
+import InputComp from '../child/InputComp'
 
 /**
  * don't transfer input value  use this dangerouslySetInnerHTML 
@@ -22,13 +23,14 @@ export default class TodoList extends Component {
   render() {
     return (
       <Fragment>
-        <label htmlFor="inputLable">请输入 :</label>
+        <label htmlFor="inputLable">请输入 : </label>
         <input id="inputLable" value={this.state.inputValue} onChange={this.handleOnChanges} className="input" />
         <button onClick={this.onHandleClick}>提交</button>
         <ul>
           {this.state.list.map((item, index) => {
-            return <li key={index} onClick={this.hangItemDel.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
-            </li>
+            return  <InputComp content={item} index={index} handleMethod={this.hangItemDel.bind(this)}/>
+            // <li key={index} onClick={this.hangItemDel.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
+            // </li>
           })}
         </ul>
       </Fragment>

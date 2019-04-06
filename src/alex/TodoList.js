@@ -1,4 +1,12 @@
 import React, { Component, Fragment } from 'react'
+import './TodoList.css'
+
+/**
+ * don't transfer input value  use this dangerouslySetInnerHTML 
+ * 
+ * click lable focus mouse in input ,need add id in input tag, and add htmlFor tag in lable this value equals input'id
+ */
+
 
 export default class TodoList extends Component {
 
@@ -14,11 +22,13 @@ export default class TodoList extends Component {
   render() {
     return (
       <Fragment>
-        <input value={this.state.inputValue} onChange={this.handleOnChanges} />
+        <label htmlFor="inputLable">请输入 :</label>
+        <input id="inputLable" value={this.state.inputValue} onChange={this.handleOnChanges} className="input" />
         <button onClick={this.onHandleClick}>提交</button>
         <ul>
           {this.state.list.map((item, index) => {
-            return <li key={index} onClick={this.hangItemDel.bind(this,index)}>{item}</li>
+            return <li key={index} onClick={this.hangItemDel.bind(this, index)} dangerouslySetInnerHTML={{ __html: item }}>
+            </li>
           })}
         </ul>
       </Fragment>
@@ -46,10 +56,10 @@ export default class TodoList extends Component {
    * click del list value fuc
    */
   hangItemDel = (index) => {
-    let task=this.state.list
-    task.splice(index,1)
+    let task = this.state.list
+    task.splice(index, 1)
     this.setState({
-      list:task
+      list: task
     })
   }
 }

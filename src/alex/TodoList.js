@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react'
 import './TodoList.css'
 import InputComp from '../child/InputComp'
+import Test from '../child/Test';
 
 /**
  * don't transfer input value  use this dangerouslySetInnerHTML 
  * 
  * click lable focus mouse in input ,need add id in input tag, and add htmlFor tag in lable this value equals input'id
+ * when state or props render func will redo.
  */
 
 
@@ -21,6 +23,7 @@ export default class TodoList extends Component {
   }
 
   render() {
+    console.log('render')
     return (
       <Fragment>
         <label htmlFor="inputLable">请输入 : </label>
@@ -29,6 +32,7 @@ export default class TodoList extends Component {
         <ul>
           {this.getItem()}
         </ul>
+        <Test  content={this.state.inputValue}/>
       </Fragment>
     )
   }

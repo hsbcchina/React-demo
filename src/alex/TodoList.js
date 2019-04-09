@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react'
 import './TodoList.css'
 import InputComp from '../child/InputComp'
 import Test from '../child/Test';
+import LifeCom from '../child/LifeCom';
 
 /**
  * don't transfer input value  use this dangerouslySetInnerHTML 
@@ -23,16 +24,16 @@ export default class TodoList extends Component {
   }
 
   render() {
-    console.log('render')
     return (
       <Fragment>
         <label htmlFor="inputLable">请输入 : </label>
-        <input id="inputLable" value={this.state.inputValue} onChange={this.handleOnChanges} className="input" />
+        <input id="inputLable" value={this.state.inputValue} onChange={this.handleOnChanges} className="input" ref={(args) => { this.input = args }} />
         <button onClick={this.onHandleClick}>提交</button>
         <ul>
           {this.getItem()}
         </ul>
-        <Test  content={this.state.inputValue}/>
+        <Test content={this.state.inputValue} />
+        <LifeCom />
       </Fragment>
     )
   }
@@ -49,8 +50,9 @@ export default class TodoList extends Component {
   /**
    * chang input value fuc
    */
-  handleOnChanges = (e) => {
-    const val = e.target.value
+  handleOnChanges = () => {
+    // const val = e.target.value
+    const val = this.input.value
     this.setState(() => {
       return { inputValue: val }
     })
